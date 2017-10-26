@@ -5,6 +5,11 @@ export interface Category {
     id: string;
 }
 
+export interface Ingredient {
+    slug: string;
+    name: string;
+}
+
 @Injectable()
 export class IngredientService {
 
@@ -23,13 +28,16 @@ export class IngredientService {
         });
     }
 
-    getIngredients(category: Category) {
-        this.http
-            .get(this.baseUrl + '/' + category.id)
-            .subscribe((resp) => {
-                console.log('Got response', resp);
-            }, (err) => {
-                console.trace('Http error:',err);
-            });
+    getIngredients(category: Category): Promise<Ingredient[]> {
+        return new Promise((resolve, reject) => {
+            this.http
+                .get(this.baseUrl + '/' + category.id)
+                .subscribe((resp) => {
+                    resolve(resp);
+                }, (err) => {
+                    console.trace('Http error:',err);
+                    reject({err: err});
+                });
+        });
     }
 }
