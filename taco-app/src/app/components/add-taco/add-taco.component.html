@@ -1,0 +1,14 @@
+<div class="add-taco">
+    <div *ngFor="let cat of categories">
+        <div class="container" [ngClass]="{
+            'slide-in-down': dynClass[cat] == 'slide-in-down',
+            'slide-in-up': dynClass[cat] == 'slide-in-up',
+            'slide-out-down': dynClass[cat] == 'slide-out-down',
+            'slide-out-up': dynClass[cat] == 'slide-out-up'
+        }">
+            <ingredient-view [categoryId]="cat"></ingredient-view>
+        </div>
+    </div>
+    <input class="navbtn" type="button" value="Previous" (click)="prevCat()"/>
+    <input class="navbtn" type="button" value="Next" (click)="nextCat()"/>
+</div>
