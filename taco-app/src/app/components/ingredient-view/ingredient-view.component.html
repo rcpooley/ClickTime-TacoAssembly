@@ -5,8 +5,9 @@
         <div *ngIf="category.max == 1; else: more_than_one">Please select 1</div>
         <ng-template #more_than_one>Select up to {{category.max}}</ng-template>
     </div>
+    <input type="text" class="search" [(ngModel)]="ingSearch"/>
     <div class="ingredients">
-        <div *ngFor="let ing of ingredients"
+        <div *ngFor="let ing of ingredients | search:'name':ingSearch"
              class="ingred-opt"
              (click)="toggleIngredient(ing)"
              [class.selected]="selectedIngredients.indexOf(ing) >= 0">

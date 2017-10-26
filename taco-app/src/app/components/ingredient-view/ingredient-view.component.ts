@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnInit, Pipe, PipeTransform} from "@angular/core";
 import {IngredientService, Ingredient, Category} from "../../services/ingredient.service";
 
 @Component({
@@ -7,6 +7,8 @@ import {IngredientService, Ingredient, Category} from "../../services/ingredient
     styleUrls: ['ingredient-view.component.css'],
     providers: []
 })
+
+
 
 export class IngredientViewComponent implements OnInit {
 
@@ -17,6 +19,7 @@ export class IngredientViewComponent implements OnInit {
 
     ingredients: Ingredient[];
     selectedIngredients: Ingredient[] = [];
+    ingSearch: string = '';
 
     constructor(private ingredientService: IngredientService) {
     }
