@@ -1,3 +1,23 @@
+.wrap {
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.searchline {
+    border-bottom: 1px solid black;
+}
+
+.searchimg {
+    width: 22px;
+    height: 22px;
+}
+
+.search {
+    border: 0;
+    outline: 0;
+}
+
 .ingredient-view {
     height: 100%;
     display: flex;
@@ -12,13 +32,12 @@
 
 .subtitle {
     text-align: center;
+    border-bottom: 1px solid black;
 }
 
 .ingredients {
     height: 100%;
     overflow: auto;
-    margin: 3px;
-    border: 1px solid black;
 }
 
 .ingred-opt {
@@ -44,4 +63,14 @@
     margin: 0 3px;
     color: red;
     cursor: pointer;
+}
+
+.selectedIngredients {
+    display: none;
+    border-top: 1px solid black;
+    padding: 7px;
+}
+
+.selectedIngredients.active {
+    display: block;
 }

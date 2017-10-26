@@ -1,23 +1,38 @@
-<div *ngIf="ingredients; else: loading"
-     class="ingredient-view">
-    <div class="title">Choose your {{category.name}}</div>
-    <div class="subtitle">
-        <div *ngIf="category.max == 1; else: more_than_one">Please select 1</div>
-        <ng-template #more_than_one>Select up to {{category.max}}</ng-template>
-    </div>
-    <input type="text" class="search" [(ngModel)]="ingSearch"/>
-    <div class="ingredients">
-        <div *ngFor="let ing of ingredients | search:'name':ingSearch"
-             class="ingred-opt"
-             (click)="toggleIngredient(ing)"
-             [class.selected]="selectedIngredients.indexOf(ing) >= 0">
-            {{ing.name}}
+<div class="wrap">
+    <div *ngIf="ingredients; else: loading"
+         class="ingredient-view">
+        <div class="title">Choose your {{category.name}}</div>
+        <div class="subtitle">
+            <div *ngIf="category.max == 1; else: more_than_one">Please select 1</div>
+            <ng-template #more_than_one>Select up to {{category.max}}</ng-template>
+        </div>
+        <div class="searchline">
+            <table style="border-collapse: collapse">
+                <tr>
+                    <td>
+                        <img class="searchimg" [src]="images.search">
+                    </td>
+                    <td>
+                        <input type="text" class="search" [(ngModel)]="ingSearch"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="ingredients">
+            <div *ngFor="let ing of ingredients | search:'name':ingSearch"
+                 class="ingred-opt"
+                 (click)="toggleIngredient(ing)"
+                 [class.selected]="selectedIngredients.indexOf(ing) >= 0">
+                {{ing.name}}
+            </div>
+        </div>
+        <div class="selectedIngredients" [class.active]="selectedIngredients.length > 0">
+            <div *ngFor="let ing of selectedIngredients">
+                <div class="delbtn" (click)="toggleIngredient(ing)">X</div>
+                {{ing.name}}
+            </div>
         </div>
     </div>
-    <div class="selectedIngredients">
-        <div *ngFor="let ing of selectedIngredients">
-            <div class="delbtn" (click)="toggleIngredient(ing)">X</div>{{ing.name}}
-        </div>
-    </div>
+    <ng-template #loading>Loading...</ng-template>
 </div>
-<ng-template #loading>Loading...</ng-template>
