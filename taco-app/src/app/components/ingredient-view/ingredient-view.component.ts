@@ -1,6 +1,10 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {IngredientService, Ingredient, Category} from "../../services/ingredient.service";
 
+export interface ParentData {
+    selectedIngredients: Ingredient[];
+}
+
 @Component({
     selector: 'ingredient-view',
     templateUrl: 'ingredient-view.component.html',
@@ -13,10 +17,13 @@ export class IngredientViewComponent implements OnInit {
     @Input()
     categoryId: string;
 
+    @Input()
+    parentData: ParentData;
+
     category: Category;
 
     ingredients: Ingredient[];
-    selectedIngredients: Ingredient[] = [];
+    selectedIngredients: Ingredient[];
     ingSearch: string = '';
 
     images = {
@@ -27,6 +34,11 @@ export class IngredientViewComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.selectedIngredients = [];
+        if (this.parentData) {
+            this.parentData.selectedIngredients = this.selectedIngredients;
+        }
+
         this.category = this.ingredientService.category[this.categoryId];
         this.ingredientService.getIngredients(this.category)
             .then(ingredients => this.ingredients = ingredients);

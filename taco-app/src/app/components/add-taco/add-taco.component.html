@@ -6,13 +6,16 @@
             'slide-out-down': dynClass[cat] == 'slide-out-down',
             'slide-out-up': dynClass[cat] == 'slide-out-up'
         }">
-            <ingredient-view [categoryId]="cat"></ingredient-view>
+            <ingredient-view [categoryId]="cat" [parentData]="selectedIngredients[cat]"></ingredient-view>
         </div>
     </div>
     <div class="navbtn prev"
          [class.disabled]="curCat == 0"
          (click)="prevCat()">&laquo; Previous</div>
     <div class="navbtn next"
-         [class.disabled]="curCat == categories.length - 1"
-         (click)="nextCat()">Next &raquo;</div>
+         [class.disabled]="selectedIngredients[categories[curCat]].selectedIngredients.length == 0"
+         (click)="nextCat()">
+        <div *ngIf="curCat < categories.length - 1; else: last_cat">Next &raquo;</div>
+        <ng-template #last_cat>Add Taco</ng-template>
+    </div>
 </div>
