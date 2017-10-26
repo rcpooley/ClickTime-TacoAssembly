@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {IngredientService, Ingredient} from "../../services/ingredient.service";
+import {IngredientService, Ingredient, Category} from "../../services/ingredient.service";
 
 @Component({
     selector: 'ingredient-view',
@@ -13,13 +13,30 @@ export class IngredientViewComponent implements OnInit {
     @Input()
     categoryId: string;
 
+    category: Category;
+
     ingredients: Ingredient[];
+    selectedIngredients: Ingredient[] = [];
 
     constructor(private ingredientService: IngredientService) {
     }
 
     ngOnInit(): void {
-        this.ingredientService.getIngredients(this.ingredientService.category[this.categoryId])
+        this.category = this.ingredientService.category[this.categoryId];
+        this.ingredientService.getIngredients(this.category)
             .then(ingredients => this.ingredients = ingredients);
+    }
+
+    toggleIngredient(ing: Ingredient) {
+        let idx = this.selectedIngredients.indexOf(ing);
+        if (idx >= 0) {
+            return this.selectedIngredients.splice(idx, 1);
+        }
+
+        if (this.selectedIngredients.length >= this.category.max) {
+            this.selectedIngredients.splice(0, 1);
+        }
+
+        this.selectedIngredients.push(ing);
     }
 }

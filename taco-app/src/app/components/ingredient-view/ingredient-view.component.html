@@ -1,5 +1,22 @@
-<div *ngIf="ingredients">
-    <div *ngFor="let ing of ingredients">
-        {{ing.name}}
+<div *ngIf="ingredients; else: loading"
+     class="ingredient-view">
+    <div class="title">Choose your {{category.name}}</div>
+    <div class="subtitle">
+        <div *ngIf="category.max == 1; else: more_than_one">Please select 1</div>
+        <ng-template #more_than_one>Select up to {{category.max}}</ng-template>
+    </div>
+    <div class="ingredients">
+        <div *ngFor="let ing of ingredients"
+             class="ingred-opt"
+             (click)="toggleIngredient(ing)"
+             [class.selected]="selectedIngredients.indexOf(ing) >= 0">
+            {{ing.name}}
+        </div>
+    </div>
+    <div class="selectedIngredients">
+        <div *ngFor="let ing of selectedIngredients">
+            <div class="delbtn" (click)="toggleIngredient(ing)">X</div>{{ing.name}}
+        </div>
     </div>
 </div>
+<ng-template #loading>Loading...</ng-template>

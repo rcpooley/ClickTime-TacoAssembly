@@ -1,0 +1,47 @@
+.ingredient-view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.title {
+    text-align: center;
+    font-size: 25px;
+}
+
+.subtitle {
+    text-align: center;
+}
+
+.ingredients {
+    height: 100%;
+    overflow: auto;
+    margin: 3px;
+    border: 1px solid black;
+}
+
+.ingred-opt {
+    padding: 4px 2px;
+    border-bottom: 1px solid black;
+    cursor: default;
+}
+
+.ingred-opt:last-child {
+    border-bottom: 0;
+}
+
+.ingred-opt:hover {
+    background: lightgray;
+}
+
+.ingred-opt.selected {
+    background: gold;
+}
+
+.delbtn {
+    display: inline-block;
+    margin: 0 3px;
+    color: red;
+    cursor: pointer;
+}
