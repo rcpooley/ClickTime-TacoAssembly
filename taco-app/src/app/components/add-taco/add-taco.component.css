@@ -18,8 +18,38 @@
 }
 
 .navbtn {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    width: 90px;
+    padding: 8px 0;
     z-index: 2;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px;
+}
+
+.navbtn.prev {
+    left: 0;
+    background: #f1f1f1;
+}
+
+.navbtn.prev:not(.disabled):hover {
+    background: #dddddd;
+}
+
+.navbtn.next {
+    right: 0;
+    background: #4caf50;
+    color: white;
+}
+
+.navbtn.next:not(.disabled):hover {
+    background: #4a964d;
+}
+
+.navbtn.disabled {
+    opacity: 0.5;
+    cursor: default;
 }
 
 ingredient-view {

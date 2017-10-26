@@ -9,6 +9,10 @@
             <ingredient-view [categoryId]="cat"></ingredient-view>
         </div>
     </div>
-    <input class="navbtn" type="button" value="Previous" (click)="prevCat()"/>
-    <input class="navbtn" type="button" value="Next" (click)="nextCat()"/>
+    <div class="navbtn prev"
+         [class.disabled]="curCat == 0"
+         (click)="prevCat()">&laquo; Previous</div>
+    <div class="navbtn next"
+         [class.disabled]="curCat == categories.length - 1"
+         (click)="nextCat()">Next &raquo;</div>
 </div>
