@@ -16,11 +16,25 @@ add-taco {
     box-shadow: #808080 4px 4px 13px 6px;
 }
 
+.tacolistwrap {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 0;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.tacolistwrap .title {
+    font-size: 35px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
 taco-list {
     display: block;
     height: 100%;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    overflow: auto;
 }
 
 .tcell {

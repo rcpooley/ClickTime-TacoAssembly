@@ -91,26 +91,16 @@ export class AddTacoComponent {
     }
 
     randomTaco(): void {
-        for(let i = 0; i < this.categories.length; i++) {
-            let cat = this.categories[i];
-            let pdata = this.selectedIngredients[cat];
+        this.tacoService.getRandomTacoIngredients().then(ingreds => {
+            for(let i = 0; i < this.categories.length; i++) {
+                let cat = this.categories[i];
+                let pdata = this.selectedIngredients[cat];
 
-            //Clear selectedIngredients
-            pdata.selectedIngredients.splice(0, pdata.selectedIngredients.length);
+                //Clear selectedIngredients
+                pdata.selectedIngredients.splice(0, pdata.selectedIngredients.length);
 
-            //Get number of ingredients we will add
-            let num = Math.floor(Math.random() * this.ingredientService.category[cat].max) + 1;
-
-            for (let j = 0; j < num; j++) {
-                //Get random ingredient that hasn't been added
-                let ing;
-                do {
-                    ing = pdata.allIngredients[Math.floor(Math.random() * pdata.allIngredients.length)];
-                } while (pdata.selectedIngredients.indexOf(ing) >= 0);
-
-                //Add the ingredient
-                pdata.selectedIngredients.push(ing);
+                Array.prototype.push.apply(pdata.selectedIngredients, ingreds[cat]);
             }
-        }
+        });
     }
 }

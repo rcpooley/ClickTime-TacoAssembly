@@ -26,4 +26,15 @@ export class TacoListComponent {
     addTaco(): void {
         this.tacoService.navEvent.emit('add');
     }
+
+    randomTaco(): void {
+        this.tacoService.getRandomTacoIngredients().then(ingreds => {
+            let newTaco: Taco = {
+                ingredients: ingreds,
+                name: this.tacoService.getNewTacoName(),
+                sentence: null
+            };
+            this.tacoService.addTaco(newTaco);
+        });
+    }
 }

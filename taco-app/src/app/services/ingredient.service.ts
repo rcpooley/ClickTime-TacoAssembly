@@ -45,19 +45,27 @@ export class IngredientService {
         }
     };
 
+    private ingredientCache: {[s: string]: Ingredient[]};
+
     constructor(private http: HttpClient) {
+        this.ingredientCache = {};
     }
 
     getIngredients(category: Category): Promise<Ingredient[]> {
         return new Promise((resolve, reject) => {
-            this.http
-                .get(this.baseUrl + '/' + category.id)
-                .subscribe((resp) => {
-                    resolve(resp);
-                }, (err) => {
-                    console.trace('Http error:',err);
-                    reject({err: err});
-                });
+            if (category.id in this.ingredientCache) {
+                resolve(this.ingredientCache[category.id]);
+            } else {
+                this.http
+                    .get(this.baseUrl + '/' + category.id)
+                    .subscribe((resp: Ingredient[]) => {
+                        this.ingredientCache[category.id] = resp;
+                        resolve(resp);
+                    }, (err) => {
+                        console.trace('Http error:',err);
+                        reject({err: err});
+                    });
+            }
         });
     }
 }

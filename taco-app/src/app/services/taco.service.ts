@@ -90,6 +90,42 @@ export class TacoService {
         taco.sentence = bld;
     }
 
+    getRandomTacoIngredients(): Promise<{[s: string]: Ingredient[]}> {
+        return new Promise<{[s: string]: Ingredient[]}>((resolve, reject) => {
+            let categories = Object.keys(this.ingredientService.category).map((k) => this.ingredientService.category[k].id);
+            let ingreds: {[s: string]: Ingredient[]} = {};
+
+            let proms = [];
+            for(let i = 0; i < categories.length; i++) {
+                let cat = categories[i];
+                ingreds[cat] = [];
+
+                //Get number of ingredients we will add
+                let num = Math.floor(Math.random() * this.ingredientService.category[cat].max) + 1;
+
+                proms.push(new Promise((resolve, reject) => {
+                    this.ingredientService.getIngredients(this.ingredientService.category[cat]).then((ings: Ingredient[]) => {
+                        for (let j = 0; j < num; j++) {
+                            //Get random ingredient that hasn't been added
+                            let ing;
+                            do {
+                                ing = ings[Math.floor(Math.random() * ings.length)];
+                            } while (ingreds[cat].indexOf(ing) >= 0);
+
+                            //Add the ingredient
+                            ingreds[cat].push(ing);
+                        }
+                        resolve();
+                    });
+                }));
+            }
+
+            Promise.all(proms).then(() => {
+                resolve(ingreds);
+            });
+        });
+    }
+
     getNewTacoName(): string {
         return "Taco " + (this.nextTacoId++);
     }

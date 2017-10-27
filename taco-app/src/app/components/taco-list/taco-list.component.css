@@ -1,3 +1,27 @@
 .taco-list {
     width: 100%;
 }
+
+.taco-list tr {
+    border-bottom: 1px solid black;
+}
+
+.buttons {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 500px;
+}
+
+.buttons .btn {
+    margin: 10px;
+    background: lightgrey;
+}
+
+.buttons .btn:hover {
+    background: #909090;
+}
+
+.buttons .btn:last-child {
+    float: right;
+}

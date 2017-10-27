@@ -21,12 +21,15 @@
             </td>
         </tr>
         <tr>
-            <td valign="top">
+            <td valign="top" style="position: relative">
                 <div class="row" style="height: 100%">
                     <div *ngIf="activeNav.id == 'tacos'"
                          class="col-lg-6 offset-lg-3"
                          style="height: 100%">
-                        <taco-list></taco-list>
+                        <div class="tacolistwrap">
+                            <div class="title">Your Tacos</div>
+                            <taco-list></taco-list>
+                        </div>
                     </div>
                     <div *ngIf="activeNav.id == 'stats'"></div>
                     <div *ngIf="activeNav.id == 'add'"
