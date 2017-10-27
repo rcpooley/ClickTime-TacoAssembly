@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {TacoService, TacoData} from "../../services/taco.service";
+import {TacoService, TacoData, Taco} from "../../services/taco.service";
 
 @Component({
     selector: 'taco-list',
@@ -16,4 +16,10 @@ export class TacoListComponent {
         this.tacoData = this.tacoService.data;
     }
 
+    deleteTaco(taco: Taco): void {
+        let idx = this.tacoData.tacos.indexOf(taco);
+        if (idx >= 0) {
+            this.tacoData.tacos.splice(idx, 1);
+        }
+    }
 }

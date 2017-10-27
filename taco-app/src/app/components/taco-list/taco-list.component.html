@@ -2,5 +2,6 @@
     <tr *ngFor="let taco of tacoData.tacos">
         <td width="10%">{{taco.name}}</td>
         <td>{{taco.sentence}}</td>
+        <td><input type="button" value="Delete" (click)="deleteTaco(taco)"/></td>
     </tr>
 </table>
