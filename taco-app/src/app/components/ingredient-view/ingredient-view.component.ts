@@ -3,6 +3,7 @@ import {IngredientService, Ingredient, Category} from "../../services/ingredient
 
 export interface ParentData {
     selectedIngredients: Ingredient[];
+    allIngredients: Ingredient[];
 }
 
 @Component({
@@ -41,7 +42,10 @@ export class IngredientViewComponent implements OnInit {
 
         this.category = this.ingredientService.category[this.categoryId];
         this.ingredientService.getIngredients(this.category)
-            .then(ingredients => this.ingredients = ingredients);
+            .then(ingredients => {
+                this.ingredients = ingredients;
+                this.parentData.allIngredients = ingredients;
+            });
     }
 
     toggleIngredient(ing: Ingredient) {

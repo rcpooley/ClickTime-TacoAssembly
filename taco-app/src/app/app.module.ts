@@ -9,12 +9,14 @@ import {IngredientViewComponent} from "./components/ingredient-view/ingredient-v
 import {SearchPipe} from "./pipes/searchpipe.pipe";
 import {AddTacoComponent} from "./components/add-taco/add-taco.component";
 import {TacoService} from "./services/taco.service";
+import {TacoListComponent} from "./components/taco-list/taco-list.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         IngredientViewComponent,
         AddTacoComponent,
+        TacoListComponent,
         SearchPipe
     ],
     imports: [

@@ -16,6 +16,13 @@ add-taco {
     box-shadow: #808080 4px 4px 13px 6px;
 }
 
+taco-list {
+    display: block;
+    height: 100%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
 .tcell {
     display: table-cell;
     vertical-align: middle;

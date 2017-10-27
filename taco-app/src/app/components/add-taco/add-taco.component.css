@@ -6,6 +6,11 @@
     height: 100%;
 }
 
+.tcell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .add-taco {
     width: 100%;
     height: 100%;
@@ -105,6 +110,24 @@ ingredient-view {
     width: 95%;
     height: 50%;
     transform: translate(-50%, -50%);
+}
+
+.randomizeBtn {
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    background: #48ad3c;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    display: table;
+    color: white;
+    cursor: pointer;
+}
+
+.randomizeBtn:hover {
+    background: #2d7125;
 }
 
 .slide-in-up {

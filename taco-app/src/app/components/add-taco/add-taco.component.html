@@ -29,7 +29,8 @@
                         <div class="catHeader"
                              (click)="setCat(cat)"
                              [class.selected]="categories.indexOf(cat) == curCat"
-                             [class.oneAbove]="categories.indexOf(cat) > 0 && selectedIngredients[categories[categories.indexOf(cat) - 1]].selectedIngredients.length > 0">{{catMap[cat].name}}
+                             [class.oneAbove]="categories.indexOf(cat) > 0 && selectedIngredients[categories[categories.indexOf(cat) - 1]].selectedIngredients.length > 0">
+                            {{catMap[cat].name}}
                         </div>
                         <div *ngFor="let ing of selectedIngredients[cat].selectedIngredients">
                             <span style="margin-left: 6px;">
@@ -38,6 +39,10 @@
                             </span>
                         </div>
                     </div>
+                </div>
+                <div class="randomizeBtn"
+                     (click)="randomTaco()">
+                    <div class="tcell">Randomize Taco!</div>
                 </div>
             </td>
         </tr>
