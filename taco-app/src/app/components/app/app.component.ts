@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TacoService} from "../../services/taco.service";
 
 interface Nav {
     id: string;
@@ -11,28 +12,38 @@ interface Nav {
     styleUrls: ['app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
 
     images = {
         banner: 'assets/images/banner.png'
     };
 
-    navopts: Nav[] = [
-        {
-            id: 'tacos',
-            name: 'My Tacos'
-        },
-        {
-            id: 'stats',
-            name: 'Taco Stats'
-        },
-        {
-            id: 'add',
-            name: 'Add a Taco'
-        }
-    ];
+    navopts: Nav[];
+    activeNav: Nav;
 
-    activeNav: Nav = this.navopts[0];
+    constructor(private tacoService: TacoService) {
+        this.navopts = [
+            {
+                id: 'tacos',
+                name: 'My Tacos'
+            },
+            {
+                id: 'stats',
+                name: 'Taco Stats'
+            },
+            {
+                id: 'add',
+                name: 'Add a Taco'
+            }
+        ];
+        this.activeNav = this.navopts[0];
+    }
+
+    ngOnInit(): void {
+        this.tacoService.newTaco.subscribe(() => {
+            this.setNav(this.navopts[0]);
+        });
+    }
 
     setNav(nav: Nav) {
         this.activeNav = nav;

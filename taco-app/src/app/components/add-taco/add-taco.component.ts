@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {IngredientService, Category, Ingredient} from "../../services/ingredient.service";
 import {ParentData} from "../ingredient-view/ingredient-view.component";
+import {TacoService, Taco} from "../../services/taco.service";
 
 @Component({
     selector: 'add-taco',
@@ -18,7 +19,7 @@ export class AddTacoComponent {
 
     selectedIngredients: {[s: string]: ParentData} = {};
 
-    constructor(private ingredientService: IngredientService) {
+    constructor(private ingredientService: IngredientService, private tacoService: TacoService) {
         this.catMap = this.ingredientService.category;
         this.categories = Object.keys(this.ingredientService.category).map((k) => this.ingredientService.category[k].id);
         this.categories.forEach((cat) => {
@@ -74,6 +75,15 @@ export class AddTacoComponent {
             this.dynClass[this.categories[this.curCat]] = 'slide-out-up';
             this.curCat++;
             this.dynClass[this.categories[this.curCat]] = 'slide-in-up';
+        } else if (this.curCat == this.categories.length - 1 && this.hasAll()) {
+            let newTaco: Taco = {
+                ingredients: {}
+            };
+            for(let i = 0; i < this.categories.length; i++) {
+                let cat = this.categories[i];
+                newTaco.ingredients[cat] = JSON.parse(JSON.stringify(this.selectedIngredients[cat].selectedIngredients));
+            }
+            this.tacoService.addTaco(newTaco);
         }
     }
 }
