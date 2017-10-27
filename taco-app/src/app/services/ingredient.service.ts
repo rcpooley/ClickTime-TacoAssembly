@@ -30,7 +30,7 @@ export class IngredientService {
         },
         mixins: {
             id: 'mixins',
-            name: 'Mixins',
+            name: 'Mix-ins',
             max: 2
         },
         condiments: {

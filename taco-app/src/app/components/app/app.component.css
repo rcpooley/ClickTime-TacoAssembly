@@ -1,8 +1,66 @@
-.wrap {
+.full {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
+}
+
+add-taco {
+    display: block;
+    height: 100%;
+    position: relative;
+    max-height: 600px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: #808080 4px 4px 13px 6px;
+}
+
+.tcell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.wrap {
     overflow: hidden;
+}
+
+.maintbl {
+    border-collapse: collapse;
+}
+
+.header {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#abd5ff, #8888ff);
+}
+
+.header .node {
+    height: 100%;
+    display: inline-table;
+    cursor: pointer;
+    width: 100px;
+    text-align: center;
+    font-family: Montserrat, serif;
+    font-size: 18px;
+}
+
+.header .node.first {
+    margin-left: 100px;
+}
+
+.header .node:hover {
+    background: #4c4cff;
+}
+
+.header .node.selected {
+    background: #4c4cff;
+}
+
+.header .title {
+    font-size: 30px;
+}
+
+.header .buttons {
+    display: inline-block;
 }

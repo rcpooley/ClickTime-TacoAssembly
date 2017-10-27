@@ -53,11 +53,11 @@
 }
 
 .ingred-opt:hover {
-    background: lightgray;
+    background: #d3d3d3;
 }
 
 .ingred-opt.selected {
-    background: gold;
+    background: #b8deff;
 }
 
 .delbtn {
@@ -74,5 +74,5 @@
 }
 
 .selectedIngredients.active {
-    display: block;
+    display: none;
 }

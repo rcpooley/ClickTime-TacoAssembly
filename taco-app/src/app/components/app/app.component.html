@@ -1,3 +1,35 @@
-<div class="wrap">
-    <add-taco></add-taco>
+<div class="wrap full">
+    <table class="maintbl full" cellpadding="0">
+        <tr style="height: 70px;">
+            <td>
+                <table class="header">
+                    <tr>
+                        <td width="1px">
+                            <img [src]="images.banner">
+                        </td>
+                        <td>
+                            <div *ngFor="let nav of navopts"
+                                 class="node"
+                                 [class.first]="navopts.indexOf(nav) == 0"
+                                 [class.selected]="activeNav == nav"
+                                 (click)="setNav(nav)">
+                                <div class="tcell">{{nav.name}}</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <div class="row" style="height: 100%">
+                    <div *ngIf="activeNav.id == 'tacos'"></div>
+                    <div *ngIf="activeNav.id == 'stats'"></div>
+                    <div *ngIf="activeNav.id == 'add'" class="col-lg-6 offset-lg-3" style="height: 100%">
+                        <add-taco></add-taco>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
