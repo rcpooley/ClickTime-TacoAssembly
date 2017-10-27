@@ -22,4 +22,8 @@ export class TacoListComponent {
             this.tacoData.tacos.splice(idx, 1);
         }
     }
+
+    addTaco(): void {
+        this.tacoService.navEvent.emit('add');
+    }
 }

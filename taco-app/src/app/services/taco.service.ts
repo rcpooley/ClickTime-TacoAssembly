@@ -24,14 +24,14 @@ export class TacoService {
 
     sentenceTemplates: SentenceTemplate[];
 
-    newTaco: EventEmitter<boolean>;
+    navEvent: EventEmitter<string>;
     nextTacoId: number;
 
     constructor(private ingredientService: IngredientService) {
         this.data = {
             tacos: []
         };
-        this.newTaco = new EventEmitter<boolean>();
+        this.navEvent = new EventEmitter<string>();
         this.nextTacoId = 1;
 
         this.sentenceTemplates = [
@@ -97,6 +97,6 @@ export class TacoService {
     addTaco(taco: Taco): void {
         this.setTacoSentence(taco);
         this.data.tacos.push(taco);
-        this.newTaco.emit(true);
+        this.navEvent.emit('tacos');
     }
 }

@@ -39,9 +39,18 @@ export class AppComponent implements OnInit{
         this.activeNav = this.navopts[0];
     }
 
+    private getNavById(id: string): Nav {
+        for (let i = 0; i < this.navopts.length; i++) {
+            if (this.navopts[i].id == id) {
+                return this.navopts[i];
+            }
+        }
+        return null;
+    }
+
     ngOnInit(): void {
-        this.tacoService.newTaco.subscribe(() => {
-            this.setNav(this.navopts[0]);
+        this.tacoService.navEvent.subscribe((nav: string) => {
+            this.setNav(this.getNavById(nav));
         });
     }
 
