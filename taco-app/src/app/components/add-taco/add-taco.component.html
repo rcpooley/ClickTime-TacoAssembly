@@ -1,50 +1,51 @@
-<div class="add-taco">
-    <table class="tacotable">
-        <tr valign="top">
-            <td>
-                <div *ngFor="let cat of categories">
-                    <div class="container" [ngClass]="{
+<div #addtaco class="add-taco"
+     (window:resize)="onResize()"
+     [class.mobile]="myWidth < 480">
+    <div class="parentdiv">
+        <div class="ingview">
+            <div *ngFor="let cat of categories">
+                <div class="container" [ngClass]="{
                         'slide-in-down': dynClass[cat] == 'slide-in-down',
                         'slide-in-up': dynClass[cat] == 'slide-in-up',
                         'slide-out-down': dynClass[cat] == 'slide-out-down',
                         'slide-out-up': dynClass[cat] == 'slide-out-up'
                     }">
-                        <ingredient-view [categoryId]="cat" [parentData]="selectedIngredients[cat]"></ingredient-view>
+                    <ingredient-view [categoryId]="cat" [parentData]="selectedIngredients[cat]"></ingredient-view>
+                </div>
+            </div>
+            <div class="navbtn prev"
+                 [class.disabled]="curCat == 0"
+                 (click)="prevCat()">&laquo; Previous
+            </div>
+            <div class="navbtn next"
+                 [class.disabled]="!(hasAll() || curCat < categories.length - 1)"
+                 (click)="nextCat()">
+                <div *ngIf="curCat < categories.length - 1; else: last_cat">Next &raquo;</div>
+                <ng-template #last_cat>Add Taco</ng-template>
+            </div>
+        </div>
+        <div class="ingnav" [class.active]="navActive">
+            <div class="menubtn" (click)="toggleNav()">BTN</div>
+            <div class="allCats">
+                <div *ngFor="let cat of categories">
+                    <div class="catHeader"
+                         (click)="setCat(cat)"
+                         [class.selected]="categories.indexOf(cat) == curCat"
+                         [class.oneAbove]="categories.indexOf(cat) > 0 && selectedIngredients[categories[categories.indexOf(cat) - 1]].selectedIngredients.length > 0">
+                        {{catMap[cat].name}}
                     </div>
-                </div>
-                <div class="navbtn prev"
-                     [class.disabled]="curCat == 0"
-                     (click)="prevCat()">&laquo; Previous
-                </div>
-                <div class="navbtn next"
-                     [class.disabled]="!(hasAll() || curCat < categories.length - 1)"
-                     (click)="nextCat()">
-                    <div *ngIf="curCat < categories.length - 1; else: last_cat">Next &raquo;</div>
-                    <ng-template #last_cat>Add Taco</ng-template>
-                </div>
-            </td>
-            <td style="width: 250px; border-left: 1px solid black;">
-                <div class="allCats">
-                    <div *ngFor="let cat of categories">
-                        <div class="catHeader"
-                             (click)="setCat(cat)"
-                             [class.selected]="categories.indexOf(cat) == curCat"
-                             [class.oneAbove]="categories.indexOf(cat) > 0 && selectedIngredients[categories[categories.indexOf(cat) - 1]].selectedIngredients.length > 0">
-                            {{catMap[cat].name}}
-                        </div>
-                        <div *ngFor="let ing of selectedIngredients[cat].selectedIngredients">
+                    <div *ngFor="let ing of selectedIngredients[cat].selectedIngredients">
                             <span style="margin-left: 6px;">
                                 <span class="delbtn" (click)="rmIngred(cat, ing)">X</span>
                                 {{ing.name}}
                             </span>
-                        </div>
                     </div>
                 </div>
-                <div class="randomizeBtn"
-                     (click)="randomTaco()">
-                    <div class="tcell">Randomize Taco!</div>
-                </div>
-            </td>
-        </tr>
-    </table>
+            </div>
+            <div class="randomizeBtn"
+                 (click)="randomTaco()">
+                <div class="tcell">Randomize Taco!</div>
+            </div>
+        </div>
+    </div>
 </div>

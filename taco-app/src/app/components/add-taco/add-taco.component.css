@@ -17,14 +17,58 @@
     overflow: hidden;
 }
 
-.tacotable {
+.parentdiv {
+    display: flex;
+    flex-direction: row;
     width: 100%;
     height: 100%;
 }
 
-.tacotable td {
+.parentdiv > div {
     position: relative;
-    padding: 0;
+    display: inline-block;
+}
+
+.parentdiv > .ingview {
+    flex-grow: 1;
+}
+
+.add-taco .ingnav {
+    border-left: 1px solid black;
+}
+
+.add-taco:not(.mobile) .ingnav {
+    width: 250px;
+}
+
+.add-taco:not(.mobile) .menubtn {
+    display: none;
+}
+
+.add-taco.mobile .ingnav {
+    width: 0;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    z-index: 2;
+    background: white;
+}
+
+.add-taco.mobile .ingnav:not(.active) .randomizeBtn {
+    display: none;
+}
+
+.add-taco.mobile .ingnav.active {
+    width: 250px;
+}
+
+.menubtn {
+    position: absolute;
+    left: -5px;
+    top: 5px;
+    transform: translateX(-100%);
+    cursor: pointer;
+    z-index: 2;
 }
 
 .container {

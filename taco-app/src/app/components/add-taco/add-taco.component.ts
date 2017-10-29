@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef, AfterViewInit} from "@angular/core";
 import {IngredientService, Category, Ingredient} from "../../services/ingredient.service";
 import {ParentData} from "../ingredient-view/ingredient-view.component";
 import {TacoService, Taco} from "../../services/taco.service";
@@ -10,7 +10,7 @@ import {TacoService, Taco} from "../../services/taco.service";
     providers: []
 })
 
-export class AddTacoComponent {
+export class AddTacoComponent implements AfterViewInit {
 
     catMap: {[s: string]: Category};
     categories: string[];
@@ -18,6 +18,11 @@ export class AddTacoComponent {
     curCat: number;
 
     selectedIngredients: {[s: string]: ParentData} = {};
+
+    @ViewChild('addtaco') domEl: ElementRef;
+
+    myWidth: number;
+    navActive: boolean = false;
 
     constructor(private ingredientService: IngredientService, private tacoService: TacoService) {
         this.catMap = this.ingredientService.category;
@@ -31,6 +36,18 @@ export class AddTacoComponent {
         });
         this.curCat = 0;
         this.dynClass[this.categories[this.curCat]] = 'slide-in-up';
+    }
+
+    ngAfterViewInit(): void {
+        this.myWidth = this.domEl.nativeElement.getBoundingClientRect().width;
+    }
+
+    onResize() {
+        this.myWidth = this.domEl.nativeElement.getBoundingClientRect().width;
+    }
+
+    toggleNav() {
+        this.navActive = !this.navActive;
     }
 
     rmIngred(cat: string, ingred: Ingredient): void {
