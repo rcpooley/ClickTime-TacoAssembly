@@ -6,6 +6,10 @@
     border-bottom: 1px solid black;
 }
 
+.taco-list td:not(:last-child) {
+    border-right: 1px solid black;
+}
+
 .buttons {
     position: relative;
     left: 50%;

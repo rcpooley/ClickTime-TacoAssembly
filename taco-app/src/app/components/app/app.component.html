@@ -21,21 +21,17 @@
         <tr>
             <td valign="top" style="position: relative">
                 <div class="full">
-                    <div class="row" style="height: 100%">
-                        <div *ngIf="activeNav.id == 'tacos'"
-                             class="col-lg-6 offset-lg-3"
-                             style="height: 100%">
-                            <div class="tacolistwrap">
-                                <div class="title">Your Tacos</div>
-                                <taco-list></taco-list>
-                            </div>
+                    <div *ngIf="activeNav.id == 'tacos'"
+                         style="height: 100%">
+                        <div class="tacolistwrap">
+                            <div class="title">Your Tacos</div>
+                            <taco-list></taco-list>
                         </div>
-                        <div *ngIf="activeNav.id == 'stats'"></div>
-                        <div *ngIf="activeNav.id == 'add'"
-                             class="col-lg-6 offset-lg-3"
-                             style="height: 100%">
-                            <add-taco></add-taco>
-                        </div>
+                    </div>
+                    <div *ngIf="activeNav.id == 'stats'"></div>
+                    <div *ngIf="activeNav.id == 'add'"
+                         style="height: 100%">
+                        <add-taco></add-taco>
                     </div>
                 </div>
             </td>

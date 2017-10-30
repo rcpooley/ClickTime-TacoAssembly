@@ -7,22 +7,29 @@
 }
 
 add-taco {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    max-width: 600px;
+    max-height: 600px;
+    transform: translate(-50%, -50%);
     display: block;
     height: 100%;
-    position: relative;
-    max-height: 600px;
-    top: 50%;
-    transform: translateY(-50%);
     box-shadow: #808080 4px 4px 13px 6px;
 }
 
 .tacolistwrap {
+    position: relative;
+    left: 50%;
+    max-width: 600px;
+    max-height: 100%;
+    transform: translateX(-50%);
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     padding: 0;
-    max-height: 100%;
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .tacolistwrap .title {
