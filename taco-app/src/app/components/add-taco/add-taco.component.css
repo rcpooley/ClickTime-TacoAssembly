@@ -58,10 +58,6 @@
     display: none;
 }
 
-.add-taco.mobile .ingnav.active {
-    width: 250px;
-}
-
 .menubtn {
     position: absolute;
     left: -5px;
@@ -69,6 +65,40 @@
     transform: translateX(-100%);
     cursor: pointer;
     z-index: 2;
+    font-size: 35px;
+    line-height: 0.5;
+}
+
+.allCats {
+    width: 250px;
+}
+
+.menu-open {
+    animation: menu-open 0.5s forwards;
+    -webkit-animation: menu-open 0.5s forwards;
+}
+
+@keyframes menu-open {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 250px;
+    }
+}
+
+.menu-close {
+    animation: menu-close 0.5s forwards;
+    -webkit-animation: menu-close 0.5s forwards;
+}
+
+@keyframes menu-close {
+    0% {
+        width: 250px;
+    }
+    100% {
+        width: 0;
+    }
 }
 
 .container {

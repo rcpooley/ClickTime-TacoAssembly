@@ -1,6 +1,6 @@
 <div #addtaco class="add-taco"
      (window:resize)="onResize()"
-     [class.mobile]="myWidth < 480">
+     [class.mobile]="isMobile()">
     <div class="parentdiv">
         <div class="ingview">
             <div *ngFor="let cat of categories">
@@ -24,8 +24,13 @@
                 <ng-template #last_cat>Add Taco</ng-template>
             </div>
         </div>
-        <div class="ingnav" [class.active]="navActive">
-            <div class="menubtn" (click)="toggleNav()">BTN</div>
+        <div class="ingnav"
+             [class.menu-open]="isMobile() && navActive"
+             [class.menu-close]="isMobile() && !navActive && menuClose">
+            <div class="menubtn" (click)="toggleNav()">
+                <div *ngIf="navActive; else: menuopenbtn">&raquo;</div>
+                <ng-template #menuopenbtn>&laquo;</ng-template>
+            </div>
             <div class="allCats">
                 <div *ngFor="let cat of categories">
                     <div class="catHeader"

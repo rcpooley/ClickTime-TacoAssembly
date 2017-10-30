@@ -23,6 +23,7 @@ export class AddTacoComponent implements AfterViewInit {
 
     myWidth: number;
     navActive: boolean = false;
+    menuClose: boolean = false;
 
     constructor(private ingredientService: IngredientService, private tacoService: TacoService) {
         this.catMap = this.ingredientService.category;
@@ -44,9 +45,18 @@ export class AddTacoComponent implements AfterViewInit {
 
     onResize() {
         this.myWidth = this.domEl.nativeElement.getBoundingClientRect().width;
+        if (!this.isMobile()) {
+            this.menuClose = false;
+            this.navActive = false;
+        }
+    }
+
+    isMobile() {
+        return this.myWidth < 480;
     }
 
     toggleNav() {
+        this.menuClose = true;
         this.navActive = !this.navActive;
     }
 
@@ -78,21 +88,20 @@ export class AddTacoComponent implements AfterViewInit {
             this.curCat = nextIdx;
             this.dynClass[this.categories[this.curCat]] = 'slide-in-down';
         }
+        if (this.isMobile() && this.navActive) {
+            this.toggleNav();
+        }
     }
 
     prevCat() {
         if (this.curCat > 0) {
-            this.dynClass[this.categories[this.curCat]] = 'slide-out-down';
-            this.curCat--;
-            this.dynClass[this.categories[this.curCat]] = 'slide-in-down';
+            this.setCat(this.categories[this.curCat - 1]);
         }
     }
 
     nextCat() {
         if (this.curCat < this.categories.length - 1) {
-            this.dynClass[this.categories[this.curCat]] = 'slide-out-up';
-            this.curCat++;
-            this.dynClass[this.categories[this.curCat]] = 'slide-in-up';
+            this.setCat(this.categories[this.curCat + 1]);
         } else if (this.curCat == this.categories.length - 1 && this.hasAll()) {
             let newTaco: Taco = {
                 ingredients: {},
