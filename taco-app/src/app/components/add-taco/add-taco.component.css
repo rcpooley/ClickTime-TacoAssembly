@@ -57,7 +57,7 @@
 .menubtn {
     position: absolute;
     left: -5px;
-    top: 5px;
+    top: -5px;
     transform: translateX(-100%);
     cursor: pointer;
     z-index: 2;
@@ -177,11 +177,11 @@ ingredient-view {
     display: block;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 20px;
     max-width: 300px;
     width: 95%;
-    height: 50%;
-    transform: translate(-50%, -50%);
+    height: calc(100% - 100px);
+    transform: translateX(-50%);
 }
 
 .randomizeBtn {

@@ -3,15 +3,15 @@
      [class.mobile]="isMobile()">
     <div class="parentdiv">
         <div class="ingview">
-            <div *ngFor="let cat of categories">
-                <div class="container" [ngClass]="{
+            <div *ngFor="let cat of categories"
+                 class="container"
+                 [ngClass]="{
                         'slide-in-down': dynClass[cat] == 'slide-in-down',
                         'slide-in-up': dynClass[cat] == 'slide-in-up',
                         'slide-out-down': dynClass[cat] == 'slide-out-down',
                         'slide-out-up': dynClass[cat] == 'slide-out-up'
                     }">
-                    <ingredient-view [categoryId]="cat" [parentData]="selectedIngredients[cat]"></ingredient-view>
-                </div>
+                <ingredient-view [categoryId]="cat" [parentData]="selectedIngredients[cat]"></ingredient-view>
             </div>
             <div class="navbtn prev"
                  [class.disabled]="curCat == 0"
