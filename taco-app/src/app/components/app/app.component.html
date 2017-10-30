@@ -30,10 +30,17 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="activeNav.id == 'stats'"></div>
                     <div *ngIf="activeNav.id == 'add'"
                          style="height: 100%">
                         <add-taco></add-taco>
+                    </div>
+                    <div *ngIf="activeNav.id == 'about'">
+                        <div class="aboutwrap">
+                            This is Robert Pooley's submission to Question 3 of ClickTime's 2018 summer internship coding exercise.<br>
+                            URL: <a href="http://clicktime.com/ctc/devintern2018summer.html" target="_blank">http://clicktime.com/ctc/devintern2018summer.html</a>
+                            <br><br>
+                            GitHub Repo: <a href="https://github.com/rcpooley/ClickTime-TacoAssembly" target="_blank">https://github.com/rcpooley/ClickTime-TacoAssembly</a>
+                        </div>
                     </div>
                 </div>
             </td>

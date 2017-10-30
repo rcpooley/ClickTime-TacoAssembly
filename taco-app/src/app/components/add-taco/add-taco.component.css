@@ -27,6 +27,7 @@
 .parentdiv > div {
     position: relative;
     display: inline-block;
+    height: 100%;
 }
 
 .parentdiv > .ingview {

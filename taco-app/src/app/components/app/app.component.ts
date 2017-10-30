@@ -32,12 +32,12 @@ export class AppComponent implements OnInit{
                 name: 'My Tacos'
             },
             {
-                id: 'stats',
-                name: 'Taco Stats'
-            },
-            {
                 id: 'add',
                 name: 'Add a Taco'
+            },
+            {
+                id: 'about',
+                name: 'About'
             }
         ];
         this.activeNav = this.navopts[0];

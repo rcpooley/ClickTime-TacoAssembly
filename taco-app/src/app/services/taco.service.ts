@@ -50,7 +50,11 @@ export class TacoService {
 
     private setTacoSentence(taco: Taco): void {
         let getOnlyIng = function (cat: string) {
-            return taco.ingredients[cat][0].name;
+            let ing = taco.ingredients[cat][0].name;
+            if (cat == 'shells') {
+                ing = ing.replace(/Shells/g, 'Shell').replace(/Tortillas/g, 'Tortilla');
+            }
+            return ing;
         };
 
         let temp: SentenceTemplate = this.sentenceTemplates[Math.floor(Math.random() * this.sentenceTemplates.length)];

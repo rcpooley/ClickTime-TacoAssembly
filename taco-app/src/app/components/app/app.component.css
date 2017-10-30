@@ -60,6 +60,14 @@ add-taco {
     flex-direction: column;
 }
 
+.aboutwrap {
+    position: relative;
+    left: 50%;
+    max-width: 600px;
+    height: 100%;
+    transform: translateX(-50%);
+}
+
 .tacolistwrap .title {
     font-size: 35px;
     text-align: center;
@@ -101,6 +109,8 @@ taco-list {
 .header .btnwrap {
     display: inline-block;
     height: 70px;
+    #flex-grow: 1;
+    #text-align: center;
 }
 
 .header .navbtns {
