@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
 import {TacoService, TacoData, Taco} from "../../services/taco.service";
+import {IngredientService} from "../../services/ingredient.service";
+import {StateService} from "../../services/state.service";
 
 @Component({
     selector: 'taco-list',
@@ -12,7 +14,9 @@ export class TacoListComponent {
 
     tacoData: TacoData;
 
-    constructor(private tacoService: TacoService) {
+    private waitingForIngredients: boolean = false;
+
+    constructor(private tacoService: TacoService, private ingredientService: IngredientService, private stateService: StateService) {
         this.tacoData = this.tacoService.data;
     }
 
@@ -24,17 +28,29 @@ export class TacoListComponent {
     }
 
     addTaco(): void {
-        this.tacoService.navEvent.emit('add');
+        this.stateService.navEvent.emit('add');
     }
 
     randomTaco(): void {
-        this.tacoService.getRandomTacoIngredients().then(ingreds => {
-            let newTaco: Taco = {
-                ingredients: ingreds,
-                name: this.tacoService.getNewTacoName(),
-                sentence: null
-            };
-            this.tacoService.addTaco(newTaco);
-        });
+        if (!this.ingredientService.isReady) {
+            if (!this.waitingForIngredients) {
+                this.waitingForIngredients = true;
+                this.stateService.msgEvent.emit('waiting');
+                this.ingredientService.onReady.subscribe(() => {
+                    this.stateService.msgEvent.emit('clear');
+                    this.randomTaco();
+                });
+            }
+            return;
+        }
+
+        let ingreds = this.tacoService.getRandomTacoIngredients();
+
+        let newTaco: Taco = {
+            ingredients: ingreds,
+            name: this.tacoService.getNewTacoName(),
+            sentence: null
+        };
+        this.tacoService.addTaco(newTaco);
     }
 }

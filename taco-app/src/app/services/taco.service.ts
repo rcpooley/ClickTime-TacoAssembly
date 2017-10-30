@@ -1,5 +1,6 @@
-import {Injectable, EventEmitter} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {Ingredient, IngredientService} from "./ingredient.service";
+import {StateService} from "./state.service";
 
 export interface Taco {
     ingredients: {[s: string]: Ingredient[]};
@@ -24,14 +25,12 @@ export class TacoService {
 
     sentenceTemplates: SentenceTemplate[];
 
-    navEvent: EventEmitter<string>;
     nextTacoId: number;
 
-    constructor(private ingredientService: IngredientService) {
+    constructor(private ingredientService: IngredientService, private stateService: StateService) {
         this.data = {
             tacos: []
         };
-        this.navEvent = new EventEmitter<string>();
         this.nextTacoId = 1;
 
         this.sentenceTemplates = [
@@ -90,40 +89,36 @@ export class TacoService {
         taco.sentence = bld;
     }
 
-    getRandomTacoIngredients(): Promise<{[s: string]: Ingredient[]}> {
-        return new Promise<{[s: string]: Ingredient[]}>((resolve, reject) => {
-            let categories = Object.keys(this.ingredientService.category).map((k) => this.ingredientService.category[k].id);
-            let ingreds: {[s: string]: Ingredient[]} = {};
+    getRandomTacoIngredients(): {[s: string]: Ingredient[]} {
+        if (!this.ingredientService.isReady) {
+            return null;
+        }
 
-            let proms = [];
-            for(let i = 0; i < categories.length; i++) {
-                let cat = categories[i];
-                ingreds[cat] = [];
+        let categories = Object.keys(this.ingredientService.category).map((k) => this.ingredientService.category[k].id);
+        let ingreds: {[s: string]: Ingredient[]} = {};
 
-                //Get number of ingredients we will add
-                let num = Math.floor(Math.random() * this.ingredientService.category[cat].max) + 1;
+        for(let i = 0; i < categories.length; i++) {
+            let cat = categories[i];
+            ingreds[cat] = [];
 
-                proms.push(new Promise((resolve, reject) => {
-                    this.ingredientService.getIngredients(this.ingredientService.category[cat]).then((ings: Ingredient[]) => {
-                        for (let j = 0; j < num; j++) {
-                            //Get random ingredient that hasn't been added
-                            let ing;
-                            do {
-                                ing = ings[Math.floor(Math.random() * ings.length)];
-                            } while (ingreds[cat].indexOf(ing) >= 0);
+            //Get number of ingredients we will add
+            let num = Math.floor(Math.random() * this.ingredientService.category[cat].max) + 1;
 
-                            //Add the ingredient
-                            ingreds[cat].push(ing);
-                        }
-                        resolve();
-                    });
-                }));
+            let ings: Ingredient[] = this.ingredientService.getIngredients(this.ingredientService.category[cat]);
+
+            for (let j = 0; j < num; j++) {
+                //Get random ingredient that hasn't been added
+                let ing;
+                do {
+                    ing = ings[Math.floor(Math.random() * ings.length)];
+                } while (ingreds[cat].indexOf(ing) >= 0);
+
+                //Add the ingredient
+                ingreds[cat].push(ing);
             }
+        }
 
-            Promise.all(proms).then(() => {
-                resolve(ingreds);
-            });
-        });
+        return ingreds;
     }
 
     getNewTacoName(): string {
@@ -133,6 +128,6 @@ export class TacoService {
     addTaco(taco: Taco): void {
         this.setTacoSentence(taco);
         this.data.tacos.push(taco);
-        this.navEvent.emit('tacos');
+        this.stateService.navEvent.emit('tacos');
     }
 }

@@ -117,16 +117,16 @@ export class AddTacoComponent implements AfterViewInit {
     }
 
     randomTaco(): void {
-        this.tacoService.getRandomTacoIngredients().then(ingreds => {
-            for(let i = 0; i < this.categories.length; i++) {
-                let cat = this.categories[i];
-                let pdata = this.selectedIngredients[cat];
+        let ingreds = this.tacoService.getRandomTacoIngredients();
 
-                //Clear selectedIngredients
-                pdata.selectedIngredients.splice(0, pdata.selectedIngredients.length);
+        for(let i = 0; i < this.categories.length; i++) {
+            let cat = this.categories[i];
+            let pdata = this.selectedIngredients[cat];
 
-                Array.prototype.push.apply(pdata.selectedIngredients, ingreds[cat]);
-            }
-        });
+            //Clear selectedIngredients
+            pdata.selectedIngredients.splice(0, pdata.selectedIngredients.length);
+
+            Array.prototype.push.apply(pdata.selectedIngredients, ingreds[cat]);
+        }
     }
 }

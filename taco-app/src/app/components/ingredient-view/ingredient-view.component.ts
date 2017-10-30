@@ -40,12 +40,19 @@ export class IngredientViewComponent implements OnInit {
             this.parentData.selectedIngredients = this.selectedIngredients;
         }
 
+        let onIngredients = () => {
+            this.ingredients = this.ingredientService.getIngredients(this.category);
+            this.parentData.allIngredients = this.ingredients;
+        };
+
         this.category = this.ingredientService.category[this.categoryId];
-        this.ingredientService.getIngredients(this.category)
-            .then(ingredients => {
-                this.ingredients = ingredients;
-                this.parentData.allIngredients = ingredients;
+        if (!this.ingredientService.isReady) {
+            this.ingredientService.onReady.subscribe(() => {
+                onIngredients();
             });
+        } else {
+            onIngredients();
+        }
     }
 
     toggleIngredient(ing: Ingredient) {

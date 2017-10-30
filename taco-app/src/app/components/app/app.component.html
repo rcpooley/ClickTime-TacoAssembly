@@ -40,3 +40,11 @@
         </tr>
     </table>
 </div>
+<div *ngIf="activeMsg != 'clear'" class="msgcover">
+    <div *ngIf="activeMsg == 'waiting'" class="waiting">
+        <div class="tcell">
+            Loading Ingredients..<br>
+            <img src="assets/images/loading.gif">
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, EventEmitter} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 
 export interface Category {
@@ -46,12 +46,27 @@ export class IngredientService {
     };
 
     private ingredientCache: {[s: string]: Ingredient[]};
+    isReady: boolean = false;
+
+    onReady: EventEmitter<boolean>;
 
     constructor(private http: HttpClient) {
         this.ingredientCache = {};
+        this.onReady = new EventEmitter<boolean>();
+
+        //Pre fetch all ingredients
+        let proms = [];
+        let cats = Object.keys(this.category);
+        for (let i = 0; i < cats.length; i++) {
+            proms.push(this.fetchIngredients(this.category[cats[i]]));
+        }
+        Promise.all(proms).then(() => {
+            this.isReady = true;
+            this.onReady.emit(true);
+        });
     }
 
-    private removeDuplicates(ingreds: Ingredient[]): Ingredient[] {
+    private static removeDuplicates(ingreds: Ingredient[]): Ingredient[] {
         let resp: Ingredient[] = [];
         let usedSlugs: string[] = [];
         for (let i = 0; i < ingreds.length; i++) {
@@ -64,7 +79,15 @@ export class IngredientService {
         return resp;
     }
 
-    getIngredients(category: Category): Promise<Ingredient[]> {
+    getIngredients(category: Category): Ingredient[] {
+        if (!this.isReady) {
+            return null;
+        } else {
+            return this.ingredientCache[category.id];
+        }
+    }
+
+    private fetchIngredients(category: Category): Promise<Ingredient[]> {
         return new Promise((resolve, reject) => {
             if (category.id in this.ingredientCache) {
                 resolve(this.ingredientCache[category.id]);
@@ -72,7 +95,7 @@ export class IngredientService {
                 this.http
                     .get(this.baseUrl + '/' + category.id)
                     .subscribe((resp: Ingredient[]) => {
-                        resp = this.removeDuplicates(resp);
+                        resp = IngredientService.removeDuplicates(resp);
                         this.ingredientCache[category.id] = resp;
                         resolve(resp);
                     }, (err) => {

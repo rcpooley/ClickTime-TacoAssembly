@@ -1,3 +1,34 @@
+.msgcover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.msgcover > .waiting {
+    font-size: 28px;
+    max-height: 200px;
+}
+
+.msgcover > .waiting img {
+    width: 50px;
+    height: 50px;
+}
+
+.msgcover > div {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    background: whitesmoke;
+    text-align: center;
+    display: table;
+    padding: 20px;
+}
+
 .full {
     position: absolute;
     left: 0;

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {TacoService} from "../../services/taco.service";
+import {StateService} from "../../services/state.service";
 
 interface Nav {
     id: string;
@@ -23,7 +23,9 @@ export class AppComponent implements OnInit{
 
     @ViewChild('tacolist') domTacoList: ElementRef;
 
-    constructor(private tacoService: TacoService) {
+    activeMsg: string = 'clear';
+
+    constructor(private stateService: StateService) {
         this.navopts = [
             {
                 id: 'tacos',
@@ -41,6 +43,15 @@ export class AppComponent implements OnInit{
         this.activeNav = this.navopts[0];
     }
 
+    ngOnInit(): void {
+        this.stateService.navEvent.subscribe((nav: string) => {
+            this.setNav(this.getNavById(nav));
+            this.scrollDown();
+        });
+
+        this.stateService.msgEvent.subscribe((msg: string) => this.activeMsg = msg);
+    }
+
     private getNavById(id: string): Nav {
         for (let i = 0; i < this.navopts.length; i++) {
             if (this.navopts[i].id == id) {
@@ -54,13 +65,6 @@ export class AppComponent implements OnInit{
         setTimeout(() => {
             this.domTacoList.nativeElement.scrollTop = this.domTacoList.nativeElement.scrollHeight;
         }, 1);
-    }
-
-    ngOnInit(): void {
-        this.tacoService.navEvent.subscribe((nav: string) => {
-            this.setNav(this.getNavById(nav));
-            this.scrollDown();
-        });
     }
 
     setNav(nav: Nav) {
