@@ -54,10 +54,6 @@
     background: white;
 }
 
-.add-taco.mobile .ingnav:not(.active) .randomizeBtn {
-    display: none;
-}
-
 .menubtn {
     position: absolute;
     left: -5px;
@@ -71,6 +67,8 @@
 
 .allCats {
     width: 250px;
+    height: 100%;
+    overflow: auto;
 }
 
 .menu-open {
@@ -187,13 +185,13 @@ ingredient-view {
 }
 
 .randomizeBtn {
-    position: absolute;
+    position: relative;
+    left: 50%;
+    top: 20px;
     width: 100px;
     height: 60px;
-    background: #48ad3c;
-    bottom: 20px;
-    left: 50%;
     transform: translateX(-50%);
+    background: #48ad3c;
     text-align: center;
     display: table;
     color: white;
