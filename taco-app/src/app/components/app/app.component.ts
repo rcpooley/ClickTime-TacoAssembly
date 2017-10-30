@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {TacoService} from "../../services/taco.service";
 
 interface Nav {
@@ -20,6 +20,8 @@ export class AppComponent implements OnInit{
 
     navopts: Nav[];
     activeNav: Nav;
+
+    @ViewChild('tacolist') domTacoList: ElementRef;
 
     constructor(private tacoService: TacoService) {
         this.navopts = [
@@ -48,9 +50,16 @@ export class AppComponent implements OnInit{
         return null;
     }
 
+    private scrollDown() {
+        setTimeout(() => {
+            this.domTacoList.nativeElement.scrollTop = this.domTacoList.nativeElement.scrollHeight;
+        }, 1);
+    }
+
     ngOnInit(): void {
         this.tacoService.navEvent.subscribe((nav: string) => {
             this.setNav(this.getNavById(nav));
+            this.scrollDown();
         });
     }
 

@@ -25,7 +25,9 @@
                          style="height: 100%">
                         <div class="tacolistwrap">
                             <div class="title">Your Tacos</div>
-                            <taco-list></taco-list>
+                            <div #tacolist class="tacolist">
+                                <taco-list></taco-list>
+                            </div>
                         </div>
                     </div>
                     <div *ngIf="activeNav.id == 'stats'"></div>

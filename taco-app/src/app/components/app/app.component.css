@@ -22,11 +22,8 @@ add-taco {
     position: relative;
     left: 50%;
     max-width: 600px;
-    max-height: 100%;
+    height: 100%;
     transform: translateX(-50%);
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -35,13 +32,18 @@ add-taco {
 .tacolistwrap .title {
     font-size: 35px;
     text-align: center;
-    border-bottom: 1px solid black;
+    border: 1px solid black;
+    border-top-width: 0;
+}
+
+.tacolist {
+    height: 100%;
+    overflow: auto;
 }
 
 taco-list {
     display: block;
     height: 100%;
-    overflow: auto;
 }
 
 .tcell {
