@@ -57,7 +57,7 @@
 .menubtn {
     position: absolute;
     left: -5px;
-    top: -5px;
+    top: 0px;
     transform: translateX(-100%);
     cursor: pointer;
     z-index: 2;

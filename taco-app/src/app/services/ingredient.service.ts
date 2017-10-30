@@ -51,6 +51,19 @@ export class IngredientService {
         this.ingredientCache = {};
     }
 
+    private removeDuplicates(ingreds: Ingredient[]): Ingredient[] {
+        let resp: Ingredient[] = [];
+        let usedSlugs: string[] = [];
+        for (let i = 0; i < ingreds.length; i++) {
+            let ing = ingreds[i];
+            if (usedSlugs.indexOf(ing.slug) == -1) {
+                resp.push(ing);
+                usedSlugs.push(ing.slug);
+            }
+        }
+        return resp;
+    }
+
     getIngredients(category: Category): Promise<Ingredient[]> {
         return new Promise((resolve, reject) => {
             if (category.id in this.ingredientCache) {
@@ -59,6 +72,7 @@ export class IngredientService {
                 this.http
                     .get(this.baseUrl + '/' + category.id)
                     .subscribe((resp: Ingredient[]) => {
+                        resp = this.removeDuplicates(resp);
                         this.ingredientCache[category.id] = resp;
                         resolve(resp);
                     }, (err) => {
